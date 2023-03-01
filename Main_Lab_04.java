@@ -4,7 +4,7 @@ public class Main_Lab_04 {
 			//Количество запусков
 			int kva = 11; 
 			Area area = new Area();
-			
+
 			// Вывод состояний
 			for (int i=0; i<kva; i++){
 				System.out.println("\nTime: "+(i+1));

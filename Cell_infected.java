@@ -3,19 +3,24 @@ import java.util.Random;
 class Cell_infected extends Cell_immuned{
 	public Cell_infected(int x, int y){
 		super(x,y);
-		time = 6;
+		time = 5;
+		changes = 2;
 	}
 	
 	// Изменение состояния
 	@Override
 	public void cell_changes(Area f){					
-		time -=1;
+		
+		//Время вышло, клетка становится имунной.
 		if(time == 0){
-			f.getField((f.getTurn()+1)%2)[x][y] = new Cell_immuned(x,y);
+			f.getField(f.getTurn())[x][y] = new Cell_immuned(x,y);
+		//Время не вышло, клетка осталась зараженной. Заражает соседнюю.
 		}else{
-			f.getField((f.getTurn()+1)%2)[x][y] = this;
+			f.getField(f.getTurn())[x][y] = this;
 			infect(f);
 		}
+		
+		time -=1;
 	}
 	
 	// Вывод зараженной клетки
@@ -25,56 +30,55 @@ class Cell_infected extends Cell_immuned{
 	}
 	
 	// Заражение
-	private void infect(Area area){						
-		Random r = new Random(); 
-		int start = r.nextInt(8), id,x_=x,y_=y,interation=(area.getTurn()+1)%2;
-		for (int k=0;k<8;k++){
-			if(r.nextBoolean()){
-				id = (k+start)%8;
-				/*076*/
-				/*1x5*/
-				/*234*/
-				switch(id){
-					case 0:
-						x_=x-1;
-						y_=y-1;						
-						break;
-					case 1:
-						x_=x-1;
-						y_=y;						
-						break;
-					case 2:
-						x_=x-1;
-						y_=y+1;						
-						break;
-					case 3:
-						x_=x;
-						y_=y+1;						
-						break;
-					case 4:
-						x_=x+1;
-						y_=y+1;						
-						break;
-					case 5:
-						x_=x+1;
-						y_=y;						
-						break;
-					case 6:
-						x_=x+1;
-						y_=y-1;
-						break;
-					case 7:
-						x_=x;
-						y_=y-1;
-						break;	
-				}
-				
-				if(area.getField(interation)[x_][y_].infectable()){
-					area.getField(interation)[x_][y_] = new Cell_infected(x_,y_);
+	private void infect(Area area){
+		Random r = new Random();
+		int rand = r.nextInt(8);
+		int x_i = x, y_i = y, interation=(area.getTurn());
+
+		if(r.nextBoolean()){
+			/*076*/
+			/*1x5*/
+			/*234*/
+			
+			switch(rand%8){
+				case 0:
+					x_i=x-1;
+					y_i=y-1;	
 					break;
-					}
+				case 1:
+					x_i=x-1;
+					y_i=y;						
+					break;
+				case 2:
+					x_i=x-1;
+					y_i=y+1;						
+					break;
+				case 3:
+					x_i=x;
+					y_i=y+1;
+					break;
+				case 4:
+					x_i=x+1;
+					y_i=y+1;						
+					break;
+				case 5:
+					x_i=x+1;
+					y_i=y;						
+					break;
+				case 6:
+					x_i=x+1;
+					y_i=y-1;
+					break;
+				case 7:
+					x_i=x;
+					y_i=y-1;
+					break;	
+				}
+
+			if(area.getField(interation)[x_i][y_i].changes == 0){
+				area.getField(interation)[x_i][y_i] = new Cell_infected(x_i,y_i);
 			}
 		}
 	}
-
+		
 }
