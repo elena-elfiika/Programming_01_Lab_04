@@ -1,12 +1,11 @@
 
 class Cell{
-		protected int x, y, changes;
+		protected int x, y;
 
 		// Координаты
 		public Cell(int x, int y){
 			this.x = x;
 			this.y = y;
-			this.changes = 0;
 		}
 
 		public int getX(){
@@ -17,9 +16,14 @@ class Cell{
 			return y;
 		}
 
+		public boolean infectable() {
+			return true;
+		}
+
+		// Разумно делать запрос с ответом да/нет через отдельный метод
 		// Изменение состояния
 		public void cell_changes(Area f){
-			if(f.getField((f.getTurn()))[x][y].changes == 0){
+			if(infectable()){
 				f.getField((f.getTurn()))[x][y] = this;
 			}	
 		}

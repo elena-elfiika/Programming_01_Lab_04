@@ -4,7 +4,6 @@ class Cell_infected extends Cell_immuned{
 	public Cell_infected(int x, int y){
 		super(x,y);
 		time = 5;
-		changes = 2;
 	}
 	
 	// Изменение состояния
@@ -13,10 +12,10 @@ class Cell_infected extends Cell_immuned{
 		
 		//Время вышло, клетка становится имунной.
 		if(time == 0){
-			f.getField(f.getTurn())[x][y] = new Cell_immuned(x,y);
+			f.getField((f.getTurn()+1)%2)[x][y] = new Cell_immuned(x,y);
 		//Время не вышло, клетка осталась зараженной. Заражает соседнюю.
 		}else{
-			f.getField(f.getTurn())[x][y] = this;
+			f.getField((f.getTurn()+1)%2)[x][y] = this;
 			infect(f);
 		}
 		
@@ -75,8 +74,8 @@ class Cell_infected extends Cell_immuned{
 					break;	
 				}
 
-			if(area.getField(interation)[x_i][y_i].changes == 0){
-				area.getField(interation)[x_i][y_i] = new Cell_infected(x_i,y_i);
+			if(area.getField(interation)[x_i][y_i].infectable()){
+				area.getField((interation+1)%2)[x_i][y_i] = new Cell_infected(x_i,y_i);
 			}
 		}
 	}

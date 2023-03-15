@@ -4,7 +4,11 @@ class Cell_immuned extends Cell{
 	public Cell_immuned(int x, int y){
 		super(x,y);
 		time = 4;
-		changes = 1;
+	}
+
+	@Override
+	public boolean infectable() {
+		return false;
 	}
 
 	// Изменение состояния
@@ -12,9 +16,9 @@ class Cell_immuned extends Cell{
 	public void cell_changes(Area f) {							
 		time -= 1;
 		if(time == 0){
-			f.getField(f.getTurn())[x][y] = new Cell(x,y);
+			f.getField((f.getTurn()+1)%2)[x][y] = new Cell(x,y);
 		}else{
-			f.getField(f.getTurn())[x][y] = this;
+			f.getField((f.getTurn()+1)%2)[x][y] = this;
 		}
 	}
 
