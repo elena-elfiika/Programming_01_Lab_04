@@ -19,7 +19,7 @@ public class Area {
 				area_1[0][i] = area_2[0][i] = new Cell_immuned(0,i);
 				area_1[22][i] = area_2[22][i] = new Cell_immuned(22,i);
 			}
-		area_1[11][11] = area_2[11][11]= new Cell_infected(11, 11);
+		area_1[11][11] = new Cell_infected(11, 11);
 	}
 
 	//Iteration, not interaCtion
