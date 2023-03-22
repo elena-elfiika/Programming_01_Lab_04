@@ -16,6 +16,7 @@ class Cell{
 			return y;
 		}
 
+		// Заражаемость
 		public boolean infectable() {
 			return true;
 		}
