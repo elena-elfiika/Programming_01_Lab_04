@@ -11,14 +11,13 @@ class Cell_infected extends Cell_immuned{
 	public void cell_changes(Area f){					
 		
 		//Время вышло, клетка становится имунной.
+		//Время не вышло, клетка осталась зараженной. Заражает соседнюю.
 		if(time == 0){
 			f.getField((f.getTurn()+1)%2)[x][y] = new Cell_immuned(x,y);
-		//Время не вышло, клетка осталась зараженной. Заражает соседнюю.
 		}else{
 			f.getField((f.getTurn()+1)%2)[x][y] = this;
 			infect(f);
 		}
-		
 		time -=1;
 	}
 	

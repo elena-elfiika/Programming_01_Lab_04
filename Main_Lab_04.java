@@ -2,7 +2,7 @@ public class Main_Lab_04 {
 		public static void main(String[] args){ 
 			
 			//Количество запусков
-			int kva = 42; 
+			int kva = 11; 
 			Area area = new Area();
 
 			// Вывод состояний
